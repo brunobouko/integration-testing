@@ -12,7 +12,7 @@ public class MeetingRoomTest {
 
     @Before
     public void setupMeetingRoom() {
-        meetingRoom = MeetingRoomMother.europaWithCapacity10();
+        meetingRoom = MeetingRoomMother.europaWithCapacity10WithId();
     }
 
     @Test

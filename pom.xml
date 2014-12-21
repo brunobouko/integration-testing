@@ -16,6 +16,7 @@
     <modules>
         <module>meeting-jpa</module>
         <module>meeting-spring</module>
+        <module>meeting-spring-integration-testing</module>
     </modules>
 
     <dependencyManagement>

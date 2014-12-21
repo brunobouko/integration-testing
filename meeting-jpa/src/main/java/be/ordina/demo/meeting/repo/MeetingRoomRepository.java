@@ -1,21 +1,21 @@
-package be.ordina.demo.repo;
+package be.ordina.demo.meeting.repo;
 
 import be.ordina.demo.meeting.MeetingRoom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-@Repository
+@Named
 public class MeetingRoomRepository {
     @PersistenceContext
     private final EntityManager entityManager;
     private final CriteriaFactory criteriaFactory;
-    @Autowired
+    @Inject
     public MeetingRoomRepository(EntityManager entityManager, CriteriaFactory criteriaFactory) {
         this.entityManager = entityManager;
         this.criteriaFactory = criteriaFactory;
@@ -28,4 +28,9 @@ public class MeetingRoomRepository {
     }
 
 
+    public boolean hasMeetingRooms() {
+        CriteriaQuery<Long> countCriteriaQuery = criteriaFactory.createCountQueryWithRootSelection(entityManager, MeetingRoom.class);
+        TypedQuery<Long> typedQuery = entityManager.createQuery(countCriteriaQuery);
+        return typedQuery.getSingleResult() > 0;
+    }
 }

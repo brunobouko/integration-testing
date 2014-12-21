@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Objects;
+
 @Entity
 public class MeetingRoom implements Serializable {
     @Id
@@ -35,6 +37,26 @@ public class MeetingRoom implements Serializable {
             throw new UnsupportedOperationException("isEqualToCapacity can not be called with null");
         }
         return capacity.equals(currentOccupation);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MeetingRoom that = (MeetingRoom) o;
+        if (id != null && that.id != null) {
+            return id.equals(that.id);
+        }
+        return Objects.equals(roomName, that.roomName) && Objects.equals(capacity, that.capacity);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + roomName.hashCode();
+        result = 31 * result + capacity.hashCode();
+        return result;
     }
 
     public static Builder meetingRoom() {

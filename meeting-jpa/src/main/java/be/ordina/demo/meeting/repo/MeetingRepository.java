@@ -1,17 +1,17 @@
-package be.ordina.demo.repo;
+package be.ordina.demo.meeting.repo;
 
 import be.ordina.demo.meeting.Meeting;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Repository
+@Named
 public class MeetingRepository {
     @PersistenceContext
     private final EntityManager entityManager;
-    @Autowired
+    @Inject
     public MeetingRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

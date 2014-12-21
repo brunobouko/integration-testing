@@ -1,8 +1,7 @@
 package be.ordina.demo.service;
 
 import be.ordina.demo.meeting.MeetingRoom;
-import be.ordina.demo.repo.MeetingRoomRepository;
-import com.fasterxml.jackson.annotation.JsonView;
+import be.ordina.demo.meeting.repo.MeetingRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,14 +13,19 @@ public class MeetingOrganizer {
 
     private final MeetingRoomRepository meetingRoomRepository;
 
+    private final MeetingRoomInitializer meetingRoomInitializer;
+
     @Autowired
-    public MeetingOrganizer(MeetingRoomRepository meetingRoomRepository) {
+    public MeetingOrganizer(MeetingRoomRepository meetingRoomRepository, MeetingRoomInitializer meetingRoomInitializer) {
         this.meetingRoomRepository = meetingRoomRepository;
+        this.meetingRoomInitializer = meetingRoomInitializer;
     }
 
-    @RequestMapping("/meetingRooms")
-    @JsonView
+    @RequestMapping(value = "/meetingRooms")
     public List<MeetingRoom> getMeetingRooms() {
+        if(!meetingRoomRepository.hasMeetingRooms()){
+            meetingRoomInitializer.initializeMeetingRooms();
+        }
         return meetingRoomRepository.getAllMeetingRooms();
     }
 

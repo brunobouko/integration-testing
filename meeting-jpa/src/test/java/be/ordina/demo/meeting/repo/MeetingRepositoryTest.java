@@ -1,4 +1,4 @@
-package be.ordina.demo.repo;
+package be.ordina.demo.meeting.repo;
 
 import be.ordina.demo.meeting.Meeting;
 import org.junit.Before;
@@ -10,7 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.persistence.EntityManager;
 
 import static be.ordina.demo.meeting.MeetingMother.integrationTestingBetween16And18On15Dec2014InRoom;
-import static be.ordina.demo.meeting.MeetingRoomMother.europaWithCapacity10;
+import static be.ordina.demo.meeting.MeetingRoomMother.europaWithCapacity10WithId;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
@@ -24,7 +24,7 @@ public class MeetingRepositoryTest {
 
     private MeetingRepository meetingRepository;
 
-    private Meeting meeting = integrationTestingBetween16And18On15Dec2014InRoom(europaWithCapacity10());
+    private Meeting meeting = integrationTestingBetween16And18On15Dec2014InRoom(europaWithCapacity10WithId());
 
     @Before
     public void setupMeetingRepository() {
