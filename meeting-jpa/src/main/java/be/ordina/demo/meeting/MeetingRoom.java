@@ -53,10 +53,7 @@ public class MeetingRoom implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + roomName.hashCode();
-        result = 31 * result + capacity.hashCode();
-        return result;
+        return Objects.hash(roomName, capacity);
     }
 
     public static Builder meetingRoom() {

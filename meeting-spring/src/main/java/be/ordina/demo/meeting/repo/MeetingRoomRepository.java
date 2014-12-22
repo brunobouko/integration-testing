@@ -1,21 +1,21 @@
 package be.ordina.demo.meeting.repo;
 
 import be.ordina.demo.meeting.MeetingRoom;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-@Named
+@Repository
 public class MeetingRoomRepository {
     @PersistenceContext
     private final EntityManager entityManager;
     private final CriteriaFactory criteriaFactory;
-    @Inject
+    @Autowired
     public MeetingRoomRepository(EntityManager entityManager, CriteriaFactory criteriaFactory) {
         this.entityManager = entityManager;
         this.criteriaFactory = criteriaFactory;

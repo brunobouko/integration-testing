@@ -1,8 +1,10 @@
 package be.ordina.demo.meeting;
 
+import com.google.common.testing.EqualsTester;
 import org.junit.Before;
 import org.junit.Test;
 
+import static be.ordina.demo.meeting.MeetingRoomMother.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -12,7 +14,7 @@ public class MeetingRoomTest {
 
     @Before
     public void setupMeetingRoom() {
-        meetingRoom = MeetingRoomMother.europaWithCapacity10WithId();
+        meetingRoom = europaWithCapacity10WithId();
     }
 
     @Test
@@ -58,6 +60,15 @@ public class MeetingRoomTest {
     @Test
     public void isEqualToCapacity_currentOccupancy_not_equal_to_capacity_returns_false() {
         assertThat(meetingRoom.isEqualToCapacity(5), equalTo(false));
+    }
+
+    @Test
+    public void testEquals() {
+        EqualsTester equalsTester = new EqualsTester();
+        equalsTester.addEqualityGroup(meetingRoom, europaWithCapacity10WithId(), europaWithCapacity10WithOutId())
+                    .addEqualityGroup(parisWithCapacity20WithId(), parisWithCapacity20WithoutId())
+                    .addEqualityGroup(1L)
+        .testEquals();
     }
 
 }
