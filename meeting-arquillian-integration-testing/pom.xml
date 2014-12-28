@@ -16,6 +16,12 @@
             <groupId>be.ordina.demo</groupId>
             <artifactId>meeting-jpa</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -48,6 +54,12 @@
             <artifactId>meeting-jpa</artifactId>
             <version>1.0-SNAPSHOT</version>
             <classifier>tests</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -80,6 +92,9 @@
         </profile>
         <profile>
             <id>arquillian-glassfish-embedded</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>

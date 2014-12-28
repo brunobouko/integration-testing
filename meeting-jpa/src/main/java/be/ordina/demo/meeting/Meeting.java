@@ -3,6 +3,7 @@ package be.ordina.demo.meeting;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,9 +16,9 @@ public class Meeting implements Serializable {
     @NotNull
     private String subject;
     @NotNull
-    private LocalDateTime begin;
+    private Timestamp begin;
     @NotNull
-    private LocalDateTime end;
+    private Timestamp end;
     @OneToOne
     @NotNull
     private MeetingRoom meetingRoom;
@@ -49,11 +50,11 @@ public class Meeting implements Serializable {
     }
 
     public LocalDateTime getBegin() {
-        return begin;
+        return begin.toLocalDateTime();
     }
 
     public LocalDateTime getEnd() {
-        return end;
+        return end.toLocalDateTime();
     }
 
     public static class Builder {
@@ -93,8 +94,8 @@ public class Meeting implements Serializable {
             meeting.id = id;
             meeting.subject = subject;
             meeting.meetingRoom = meetingRoom;
-            meeting.begin = begin;
-            meeting.end = end;
+            meeting.begin = Timestamp.valueOf(begin);
+            meeting.end = Timestamp.valueOf(end);
             meeting.employees = new HashSet<>();
             return meeting;
         }
