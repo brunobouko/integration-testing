@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -16,14 +17,14 @@ public class Meeting implements Serializable {
     @NotNull
     private String subject;
     @NotNull
-    private Timestamp begin;
+    private Timestamp beginning;
     @NotNull
-    private Timestamp end;
+    private Timestamp ending;
     @OneToOne
     @NotNull
     private MeetingRoom meetingRoom;
     @OneToMany
-    private Set<Employee> employees;
+    private Set<Participant> participants;
 
     public static Builder meeting() {
         return new Builder();
@@ -37,24 +38,47 @@ public class Meeting implements Serializable {
         return subject;
     }
 
-    public void addEmployee(Employee employee) throws CapacityReachedException {
-        int futureOccupation = employees.size() + 1;
+    public void addParticipant(Participant participant) {
+        int futureOccupation = participants.size() + 1;
         if (!meetingRoom.isCapacityLeft(futureOccupation) && !meetingRoom.isEqualToCapacity(futureOccupation)) {
             throw new CapacityReachedException();
         }
-        employees.add(employee);
+        participants.add(participant);
     }
 
     public Integer getCurrentParticipants() {
-        return employees.size();
+        return participants.size();
     }
 
-    public LocalDateTime getBegin() {
-        return begin.toLocalDateTime();
+    public LocalDateTime getBeginning() {
+        return beginning.toLocalDateTime();
     }
 
-    public LocalDateTime getEnd() {
-        return end.toLocalDateTime();
+    public LocalDateTime getEnding() {
+        return ending.toLocalDateTime();
+    }
+
+    public MeetingRoom getMeetingRoom() {
+        return meetingRoom;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Meeting meeting = (Meeting) o;
+
+        return !((id != null && meeting.id != null) && (!id.equals(meeting.id)))
+                && Objects.equals(id, meeting.id) && Objects.equals(subject, meeting.subject)
+                && Objects.equals(beginning, meeting.beginning) && Objects.equals(ending, meeting.ending)
+                && Objects.equals(meetingRoom.getId(), meeting.meetingRoom.getId());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, subject, beginning, ending, meetingRoom, participants);
     }
 
     public static class Builder {
@@ -94,9 +118,9 @@ public class Meeting implements Serializable {
             meeting.id = id;
             meeting.subject = subject;
             meeting.meetingRoom = meetingRoom;
-            meeting.begin = Timestamp.valueOf(begin);
-            meeting.end = Timestamp.valueOf(end);
-            meeting.employees = new HashSet<>();
+            meeting.beginning = Timestamp.valueOf(begin);
+            meeting.ending = Timestamp.valueOf(end);
+            meeting.participants = new HashSet<>();
             return meeting;
         }
     }

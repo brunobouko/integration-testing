@@ -1,4 +1,7 @@
 package be.ordina.demo.meeting;
 
-public class CapacityReachedException extends Exception {
+import javax.ejb.ApplicationException;
+
+@ApplicationException
+public class CapacityReachedException extends RuntimeException {
 }

@@ -10,4 +10,6 @@ public interface MeetingRoomRepository {
     boolean hasMeetingRooms();
 
     List<MeetingRoom> getAllMeetingRooms();
+
+    MeetingRoom create(MeetingRoom meetingRoom);
 }

@@ -1,8 +1,6 @@
-package be.ordina.demo.meetin.repo;
+package be.ordina.demo.meeting.repo;
 
 import be.ordina.demo.meeting.MeetingRoom;
-import be.ordina.demo.meeting.repo.CriteriaFactory;
-import be.ordina.demo.meeting.repo.MeetingRoomRepositoryImpl;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,5 +71,15 @@ public class MeetingRoomRepositoryImplTest {
 
         assertThat(meetingRoomRepository.hasMeetingRooms(), equalTo(true));
         verify(typedCountQuery, times(1)).getSingleResult();
+    }
+
+    @Test
+    public void create_calls_persist_on_entityManager_and_returns_MeetingRoom() {
+
+        MeetingRoom createdMeetingRoom = meetingRoomRepository.create(meetingRoom);
+
+        assertThat(createdMeetingRoom, sameInstance(meetingRoom));
+        verify(entityManager, times(1)).persist(meetingRoom);
+
     }
 }

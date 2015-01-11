@@ -25,6 +25,12 @@ public class MeetingRoomRepositoryImpl implements MeetingRoomRepository {
     }
 
     @Override
+    public MeetingRoom create(MeetingRoom meetingRoom) {
+        entityManager.persist(meetingRoom);
+        return meetingRoom;
+    }
+
+    @Override
     public boolean hasMeetingRooms() {
         CriteriaQuery<Long> countCriteriaQuery = criteriaFactory.createCountQueryWithRootSelection(entityManager, MeetingRoom.class);
         TypedQuery<Long> typedQuery = entityManager.createQuery(countCriteriaQuery);

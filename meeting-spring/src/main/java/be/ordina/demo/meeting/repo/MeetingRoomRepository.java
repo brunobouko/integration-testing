@@ -21,6 +21,11 @@ public class MeetingRoomRepository {
         this.criteriaFactory = criteriaFactory;
     }
 
+    public MeetingRoom create(MeetingRoom meetingRoom) {
+        entityManager.persist(meetingRoom);
+        return meetingRoom;
+    }
+
     public List<MeetingRoom> getAllMeetingRooms() {
         CriteriaQuery<MeetingRoom> roomCriteriaQuery = criteriaFactory.createCriteriaQueryWithRootSelection(entityManager, MeetingRoom.class);
         TypedQuery<MeetingRoom> typedQuery = entityManager.createQuery(roomCriteriaQuery);

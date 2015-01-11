@@ -10,6 +10,10 @@ public class MeetingRoomMother {
         return meetingRoom().roomName("Europa").capacity(10).build();
     }
 
+    public static MeetingRoom moesWithCapacity4WithOutId() {
+        return meetingRoom().roomName("Moe's Tavern").capacity(4).build();
+    }
+
     public static MeetingRoom parisWithCapacity20WithId() {
         return meetingRoom().id(2L).roomName("Paris").capacity(20).build();
     }

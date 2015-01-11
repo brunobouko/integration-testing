@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Employee implements Serializable {
+public class Participant implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
@@ -34,14 +34,14 @@ public class Employee implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Employee employee = (Employee) o;
+        Participant participant = (Participant) o;
 
-        return Objects.equals(employee.firstName, firstName) && Objects.equals(employee.id, id) && Objects.equals(employee.lastName, lastName);
+        return !((id != null && participant.id != null) && (!id.equals(participant.id)))&& Objects.equals(participant.id, id) && Objects.equals(participant.firstName, firstName) && Objects.equals(participant.lastName, lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, id, lastName);
+        return Objects.hash(id, firstName, lastName);
     }
 
     public static Builder employee() {
@@ -68,12 +68,12 @@ public class Employee implements Serializable {
             return this;
         }
         
-        public Employee build(){
-            Employee employee = new Employee();
-            employee.id = id;
-            employee.firstName = firstName;
-            employee.lastName = lastName;
-            return employee;
+        public Participant build(){
+            Participant participant = new Participant();
+            participant.id = id;
+            participant.firstName = firstName;
+            participant.lastName = lastName;
+            return participant;
         }
     }
 }

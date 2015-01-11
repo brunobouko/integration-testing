@@ -46,7 +46,7 @@ public class MeetingRoom implements Serializable {
 
         MeetingRoom that = (MeetingRoom) o;
         if (id != null && that.id != null) {
-            return id.equals(that.id);
+            return id.equals(that.id) && Objects.equals(roomName, that.roomName) && Objects.equals(capacity, that.capacity);
         }
         return Objects.equals(roomName, that.roomName) && Objects.equals(capacity, that.capacity);
     }
