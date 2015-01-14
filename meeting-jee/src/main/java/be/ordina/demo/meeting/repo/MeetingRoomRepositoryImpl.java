@@ -3,6 +3,8 @@ package be.ordina.demo.meeting.repo;
 import be.ordina.demo.meeting.MeetingRoom;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +27,7 @@ public class MeetingRoomRepositoryImpl implements MeetingRoomRepository {
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public MeetingRoom create(MeetingRoom meetingRoom) {
         entityManager.persist(meetingRoom);
         return meetingRoom;

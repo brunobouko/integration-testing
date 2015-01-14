@@ -3,16 +3,15 @@ package be.ordina.demo.integrationtests.spring;
 import be.ordina.demo.Application;
 import be.ordina.demo.meeting.*;
 import be.ordina.demo.service.MeetingOrganizer;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,13 +33,7 @@ public class SpringIntegrationTest {
     @Autowired
     private MeetingOrganizer meetingOrganizer;
 
-    @Before
-    public void setupMeetingRooms() throws Exception {
-        entityManager.persist(MeetingRoomMother.europaWithCapacity10WithOutId());
-    }
-
     @Test
-    @SuppressWarnings("unchecked")
     public void createMeeting_meeting_with_different_employees_within_capacity_range() {
         //given
         MeetingRoom meetingRoom = europaWithCapacity10WithOutId();
@@ -54,6 +47,11 @@ public class SpringIntegrationTest {
         Meeting createdMeeting = meetingOrganizer.createMeeting(meeting, participants);
 
         //then
+        assertThat_meeting_meetingRoom_and_participants_where_persisted(meetingRoom, meeting, participants, createdMeeting);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void assertThat_meeting_meetingRoom_and_participants_where_persisted(MeetingRoom meetingRoom, Meeting meeting, List<Participant> participants, Meeting createdMeeting) {
         assertThat(entityManager.find(MeetingRoom.class, meetingRoom.getId()), equalTo(meetingRoom));
         for (Participant participant : participants) {
             assertThat(entityManager.find(Participant.class, participant.getId()), equalTo(participant));
@@ -67,6 +65,7 @@ public class SpringIntegrationTest {
     @Test
     public void createMeeting_meeting_with_different_employees_over_capacity_of_meeting_room() {
         //given
+        meetingOrganizer.deleteMeetings();
         MeetingRoom meetingRoom = moesWithCapacity4WithOutId();
         Meeting meeting = familyMeetingBetween16And18On15Dec2014InRoom(meetingRoom);
         List<Participant> simpsons = ParticipantMother.getTheSimpsons();
@@ -80,6 +79,10 @@ public class SpringIntegrationTest {
         }
 
         //then moe's tavern and every Simpson must 've been persisted, no meeting may have been created
+        assertThat_meetingRoom_and_participants_where_persisted_but_not_the_meeting(meetingRoom, simpsons);
+    }
+
+    private void assertThat_meetingRoom_and_participants_where_persisted_but_not_the_meeting(MeetingRoom meetingRoom, List<Participant> simpsons) {
         assertThat(entityManager.find(MeetingRoom.class, meetingRoom.getId()), equalTo(meetingRoom));
         for (Participant simpson : simpsons) {
             assertThat(entityManager.find(Participant.class, simpson.getId()), equalTo(simpson));

@@ -27,7 +27,6 @@ import static be.ordina.demo.meeting.MeetingRoomMother.europaWithCapacity10WithO
 import static be.ordina.demo.meeting.MeetingRoomMother.moesWithCapacity4WithOutId;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 @RunWith(Arquillian.class)
 public class ArquillianIntegrationTest {
@@ -95,9 +94,8 @@ public class ArquillianIntegrationTest {
         //when
         try {
             meetingOrganizer.createMeeting(meeting, simpsons);
-            fail("no exception was thrown");
         } catch (CapacityReachedException e) {
-            //fine we continue
+            //ok, going further
         }
 
         //then moe's tavern and every Simpson must 've been persisted, no meeting may have been created

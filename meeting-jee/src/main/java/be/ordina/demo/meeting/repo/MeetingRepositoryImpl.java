@@ -14,10 +14,10 @@ public class MeetingRepositoryImpl implements MeetingRepository {
     private EntityManager entityManager;
     @Override
     public Meeting create(Meeting meeting, List<Participant> participants) {
+        entityManager.persist(meeting);
         for (Participant participant : participants) {
             meeting.addParticipant(participant);
         }
-        entityManager.persist(meeting);
         return meeting;
     }
 }

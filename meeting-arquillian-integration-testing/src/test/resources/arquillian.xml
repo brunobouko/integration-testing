@@ -7,7 +7,14 @@
     <engine>
         <property name="deploymentExportPath">target/deployments</property>
     </engine>
-    <container qualifier="jbossas-managed" default="true">
+    <container qualifier="glassfish-embedded" default="true">
+        <configuration>
+            <property name="resourcesXml">
+                src/test/resources-glassfish-embedded/glassfish-resources.xml
+            </property>
+        </configuration>
+    </container>
+    <container qualifier="jbossas-managed">
         <configuration>
             <property name="jbossHome">C:\Program Files (x86)\jboss-eap-6.3</property>
             <property name="javaVmArguments">

@@ -3,6 +3,8 @@ package be.ordina.demo.meeting.repo;
 import be.ordina.demo.meeting.MeetingRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +23,7 @@ public class MeetingRoomRepository {
         this.criteriaFactory = criteriaFactory;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public MeetingRoom create(MeetingRoom meetingRoom) {
         entityManager.persist(meetingRoom);
         return meetingRoom;
