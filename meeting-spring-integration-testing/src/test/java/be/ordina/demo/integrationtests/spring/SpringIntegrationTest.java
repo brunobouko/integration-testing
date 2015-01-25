@@ -1,8 +1,8 @@
 package be.ordina.demo.integrationtests.spring;
 
-import be.ordina.demo.Application;
 import be.ordina.demo.meeting.*;
-import be.ordina.demo.service.MeetingOrganizer;
+import be.ordina.demo.Application;
+import be.ordina.demo.meeting.service.MeetingOrganizer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

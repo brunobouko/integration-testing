@@ -10,8 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-import static be.ordina.demo.meeting.ParticipantMother.getHomerSimpson;
-import static be.ordina.demo.meeting.ParticipantMother.getJohDoe;
 import static be.ordina.demo.meeting.Meeting.meeting;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -65,7 +63,7 @@ public class MeetingTest {
     @Test
     public void addEmployee_to_new_meeting_adds_an_employee() throws Exception {
 
-        meeting.addParticipant(getJohDoe());
+        meeting.addParticipant(ParticipantMother.getJohDoe());
 
         assertThat(meeting.getCurrentParticipants(), equalTo(1));
 
@@ -75,8 +73,8 @@ public class MeetingTest {
     @Test
     public void addEmployee_same_employee_twice_does_not_add_twice() throws Exception {
 
-        meeting.addParticipant(getJohDoe());
-        meeting.addParticipant(getJohDoe());
+        meeting.addParticipant(ParticipantMother.getJohDoe());
+        meeting.addParticipant(ParticipantMother.getJohDoe());
 
         assertThat(meeting.getCurrentParticipants(), equalTo(1));
 
@@ -87,8 +85,8 @@ public class MeetingTest {
     @Test
     public void addEmployee_other_employee_adds_other_employee() throws Exception {
 
-        meeting.addParticipant(getJohDoe());
-        meeting.addParticipant(getHomerSimpson());
+        meeting.addParticipant(ParticipantMother.getJohDoe());
+        meeting.addParticipant(ParticipantMother.getHomerSimpson());
 
         assertThat(meeting.getCurrentParticipants(), equalTo(2));
 
@@ -101,8 +99,8 @@ public class MeetingTest {
         when(meetingRoom.isCapacityLeft(2)).thenReturn(false);
         when(meetingRoom.isEqualToCapacity(2)).thenReturn(true);
 
-        meeting.addParticipant(getJohDoe());
-        meeting.addParticipant(getHomerSimpson());
+        meeting.addParticipant(ParticipantMother.getJohDoe());
+        meeting.addParticipant(ParticipantMother.getHomerSimpson());
 
         assertThat(meeting.getCurrentParticipants(), equalTo(2));
 
@@ -116,8 +114,8 @@ public class MeetingTest {
         when(meetingRoom.isCapacityLeft(2)).thenReturn(false);
         when(meetingRoom.isEqualToCapacity(2)).thenReturn(false);
 
-        meeting.addParticipant(getJohDoe());
-        meeting.addParticipant(getHomerSimpson());
+        meeting.addParticipant(ParticipantMother.getJohDoe());
+        meeting.addParticipant(ParticipantMother.getHomerSimpson());
 
 
         Mockito.verify(meetingRoom, Mockito.times(1)).isCapacityLeft(1);

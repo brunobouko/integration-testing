@@ -2,7 +2,7 @@ package be.ordina.demo.integrationtests.arquillian;
 
 import be.ordina.demo.meeting.*;
 import be.ordina.demo.meeting.repo.MeetingRoomRepository;
-import be.ordina.demo.service.MeetingOrganizer;
+import be.ordina.demo.meeting.service.MeetingOrganizer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
