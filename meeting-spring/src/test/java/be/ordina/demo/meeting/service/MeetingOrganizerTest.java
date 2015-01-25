@@ -1,11 +1,9 @@
-package be.ordina.demo.service;
+package be.ordina.demo.meeting.service;
 
 import be.ordina.demo.meeting.*;
 import be.ordina.demo.meeting.repo.MeetingRepository;
 import be.ordina.demo.meeting.repo.MeetingRoomRepository;
 import be.ordina.demo.meeting.repo.ParticipantRepository;
-import be.ordina.demo.meeting.service.MeetingOrganizer;
-import be.ordina.demo.meeting.service.MeetingRoomInitializer;
 import com.google.common.collect.Lists;
 import org.hamcrest.core.IsSame;
 import org.junit.Before;

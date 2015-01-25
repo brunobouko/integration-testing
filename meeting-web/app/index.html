@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" ng-app="meetingApp">
+<head>
+    <meta charset="utf-8">
+    <title>Google Phone Gallery</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/services.js"></script>
+</head>
+<body ng-controller="AliveCtrl">
+<div class="container-fluid">
+    <p>The meeting organizer app is {{alive}}!</p>
+
+    <div>
+        <select ng-controller="MeetingRoomsCtrl" ng-model="meetingRoom" title="meetingRooms">
+            <option ng-repeat="meetingRoom in meetingRooms" value="{{meetingRoom.name}}">{{meetingRoom.name}}</option>
+        </select>
+    </div>
+</div>
+</body>
+</html>

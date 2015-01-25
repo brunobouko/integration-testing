@@ -60,6 +60,10 @@ public class MeetingRoom implements Serializable {
         return new Builder();
     }
 
+    public Integer getCapacity() {
+        return capacity;
+    }
+
     public static class Builder {
         private Long id;
         private String roomName;

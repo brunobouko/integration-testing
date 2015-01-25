@@ -11,18 +11,64 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jboss-home>C:\Program Files (x86)\jboss-eap-6.3</jboss-home>
     </properties>
 
     <modules>
         <module>meeting-jpa</module>
         <module>meeting-spring</module>
         <module>meeting-spring-integration-testing</module>
-        <module>meeting-jee</module>
+        <module>meeting-jee-ejb</module>
+        <module>meeting-jee-rest</module>
+        <module>meeting-web</module>
         <module>meeting-arquillian-integration-testing</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>full</id>
+            <modules>
+                <module>meeting-arquillian-web-integration-testing</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <dependencyManagement>
         <dependencies>
+            <!-- meeting dependencies -->
+            <dependency>
+                <groupId>be.ordina.demo</groupId>
+                <artifactId>meeting-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>be.ordina.demo</groupId>
+                <artifactId>meeting-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>be.ordina.demo</groupId>
+                <artifactId>meeting-jpa</artifactId>
+                <version>${project.version}</version>
+                <classifier>tests</classifier>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>be.ordina.demo</groupId>
+                <artifactId>meeting-jee-ejb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>be.ordina.demo</groupId>
+                <artifactId>meeting-jee-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>be.ordina.demo</groupId>
+                <artifactId>meeting-spring</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- provided dependencies -->
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
@@ -34,11 +80,6 @@
                 <artifactId>hibernate-jpamodelgen</artifactId>
                 <version>1.2.0.Final</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>18.0</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec</groupId>
@@ -53,12 +94,19 @@
                 <version>3.1.2</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- imported dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>1.2.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- third-party-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>18.0</version>
             </dependency>
             <!-- test dependencies -->
             <dependency>
@@ -103,6 +151,13 @@
                 <artifactId>arquillian-bom</artifactId>
                 <version>1.1.5.Final</version>
                 <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.graphene</groupId>
+                <artifactId>graphene-webdriver</artifactId>
+                <version>2.0.3.Final</version>
+                <scope>test</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
