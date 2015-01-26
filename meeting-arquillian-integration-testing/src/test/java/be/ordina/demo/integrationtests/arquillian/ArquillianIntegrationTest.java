@@ -60,7 +60,6 @@ public class ArquillianIntegrationTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void createMeeting_meeting_with_different_employees_within_capacity_range() {
         //given
         MeetingRoom meetingRoom = europaWithCapacity10WithOutId();
@@ -74,6 +73,11 @@ public class ArquillianIntegrationTest {
         Meeting createdMeeting = meetingOrganizer.createMeeting(meeting, participants);
 
         //then
+        assertThat_meeting_meetingRoom_and_participants_where_persisted(meetingRoom, meeting, participants, createdMeeting);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void assertThat_meeting_meetingRoom_and_participants_where_persisted(MeetingRoom meetingRoom, Meeting meeting, List<Participant> participants, Meeting createdMeeting) {
         assertThat(entityManager.find(MeetingRoom.class, meetingRoom.getId()), equalTo(meetingRoom));
         for (Participant participant : participants) {
             assertThat(entityManager.find(Participant.class, participant.getId()), equalTo(participant));
@@ -99,6 +103,10 @@ public class ArquillianIntegrationTest {
         }
 
         //then moe's tavern and every Simpson must 've been persisted, no meeting may have been created
+        assertThat_meetingRoom_and_participants_where_persisted_but_not_the_meeting(meetingRoom, simpsons);
+    }
+
+    private void assertThat_meetingRoom_and_participants_where_persisted_but_not_the_meeting(MeetingRoom meetingRoom, List<Participant> simpsons) {
         assertThat(entityManager.find(MeetingRoom.class, meetingRoom.getId()), equalTo(meetingRoom));
         for (Participant simpson : simpsons) {
             assertThat(entityManager.find(Participant.class, simpson.getId()), equalTo(simpson));

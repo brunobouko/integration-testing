@@ -15,12 +15,15 @@
 </head>
 <body ng-controller="AliveCtrl">
 <div class="container-fluid">
-    <p>The meeting organizer app is {{alive}}!</p>
+    <h1>The meeting organizer app is {{alive}}!</h1>
 
-    <div>
-        <select ng-controller="MeetingRoomsCtrl" ng-model="meetingRoom" title="meetingRooms">
+    <div ng-controller= "MeetingRoomsCtrl">
+        <select ng-model="meetingRoom" title="meetingRooms">
             <option ng-repeat="meetingRoom in meetingRooms" value="{{meetingRoom.name}}">{{meetingRoom.name}}</option>
         </select>
+        <div>
+            <h2>The selected meeting-room is {{meetingRoom}}</h2>
+        </div>
     </div>
 </div>
 </body>

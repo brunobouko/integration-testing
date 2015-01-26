@@ -54,8 +54,11 @@ public class ArquillianWebIntegrationTest {
     @FindBy(tagName="body")
     private WebElement restResponse;
 
-    @FindBy(tagName = "p")
-    private WebElement indexResponse;
+    @FindBy(tagName = "h1")
+    private WebElement aliveCheck;
+
+    @FindBy(tagName = "h2")
+    private WebElement selectedMeetingRoom;
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @FindByNg(repeat = "meetingRoom in meetingRooms")
@@ -69,25 +72,38 @@ public class ArquillianWebIntegrationTest {
     }
 
     @Test
-    public void should_have_one_meeting_room_at_rest_url() {
+    public void should_have_4_meeting_room_at_rest_url() {
 
         browser.get(deploymentUrl.toExternalForm() + "meeting/organizer/meetingrooms");
 
-        assertThat(restResponse.getText()).isEqualTo("[{\"id\":\"1\",\"name\":\"Europa\",\"capacity\":10}]");
+        assertThat(restResponse.getText()).isEqualTo(   "[{\"id\":\"1\",\"name\":\"Europa\",\"capacity\":10}," +
+                                                        "{\"id\":\"2\",\"name\":\"Antwerp\",\"capacity\":15}," +
+                                                        "{\"id\":\"3\",\"name\":\"Ghent\",\"capacity\":5}," +
+                                                        "{\"id\":\"4\",\"name\":\"Liege\",\"capacity\":6}]");
     }
 
     @Test
     public void should_read_the_meeting_organizer_app_is_alive_when_loading_index_html() {
         browser.get(deploymentUrl.toExternalForm() + "app/index.html");
 
-        assertThat(indexResponse.getText()).isEqualTo("The meeting organizer app is alive!");
+        assertThat(aliveCheck.getText()).isEqualTo("The meeting organizer app is alive!");
     }
 
     @Test
     public void should_have_a_selection_of_existing_meetingRooms_when_loading_index_html() {
         browser.get(deploymentUrl.toExternalForm() + "app/index.html");
 
-        assertThat(meetingRooms.size()).isEqualTo(1);
+        assertThat(meetingRooms.size()).isEqualTo(4);
+    }
+
+    @Test
+    public void should_set_text_of_paragraph_to_selected_meetingRoom() {
+        browser.get(deploymentUrl.toExternalForm() + "app/index.html");
+
+        WebElement webElement = meetingRooms.get(2);
+        webElement.click();
+
+        assertThat(selectedMeetingRoom.getText()).isEqualTo("The selected meeting-room is Ghent");
     }
 
 }
