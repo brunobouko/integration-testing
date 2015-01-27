@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jboss-home>C:\Program Files (x86)\jboss-eap-6.3</jboss-home>
+        <chrome-web-driver>C:\Program Files (x86)\Chromedriver\chromedriver.exe</chrome-web-driver>
     </properties>
 
     <modules>

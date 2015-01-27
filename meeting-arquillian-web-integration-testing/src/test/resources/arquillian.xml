@@ -9,7 +9,7 @@
     </engine>
     <extension qualifier="webdriver">
         <property name="browser">${browser}</property>
-        <property name="chromeDriverBinary">C:\Program Files (x86)\Chromedriver\chromedriver.exe</property>
+        <property name="chromeDriverBinary">${chrome-web-driver}</property>
     </extension>
     <container qualifier="jbossas-managed">
         <configuration>
