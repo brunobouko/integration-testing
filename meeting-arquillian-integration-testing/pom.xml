@@ -11,10 +11,6 @@
 
     <artifactId>meeting-arquillian-integration-testing</artifactId>
 
-    <properties>
-        <browser>phantomjs</browser>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>be.ordina.demo</groupId>
@@ -170,18 +166,6 @@
                     </testResource>
                 </testResources>
             </build>
-        </profile>
-        <profile>
-            <id>chrome</id>
-            <properties>
-                <browser>chrome</browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>firefox</id>
-            <properties>
-                <browser>firefox</browser>
-            </properties>
         </profile>
     </profiles>
 

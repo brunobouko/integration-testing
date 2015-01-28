@@ -3,6 +3,7 @@ package be.ordina.demo.integrationtests.arquillian;
 import be.ordina.demo.meeting.*;
 import be.ordina.demo.meeting.repo.MeetingRoomRepository;
 import be.ordina.demo.meeting.service.MeetingOrganizer;
+import org.hamcrest.core.IsCollectionContaining;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -23,8 +24,10 @@ import java.util.List;
 
 import static be.ordina.demo.meeting.MeetingMother.familyMeetingBetween16And18On15Dec2014InRoom;
 import static be.ordina.demo.meeting.MeetingMother.integrationTestingBetween16And18On15Dec2014InRoomWithoutId;
+import static be.ordina.demo.meeting.MeetingRoomMother.*;
 import static be.ordina.demo.meeting.MeetingRoomMother.europaWithCapacity10WithOutId;
 import static be.ordina.demo.meeting.MeetingRoomMother.moesWithCapacity4WithOutId;
+import static org.hamcrest.core.IsCollectionContaining.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -60,7 +63,12 @@ public class ArquillianIntegrationTest {
     }
 
     @Test
-    public void createMeeting_meeting_with_different_employees_within_capacity_range() {
+    public void getMeetingRooms_if_none_exist_4_rooms_are_created() {
+        assertThat(meetingOrganizer.getMeetingRooms(), hasItems(initialRooms()));
+    }
+
+    @Test
+    public void createMeeting_meeting_with_different_participants_within_capacity_range() {
         //given
         MeetingRoom meetingRoom = europaWithCapacity10WithOutId();
         Meeting meeting = integrationTestingBetween16And18On15Dec2014InRoomWithoutId(meetingRoom);
@@ -89,7 +97,7 @@ public class ArquillianIntegrationTest {
     }
 
     @Test
-    public void createMeeting_meeting_with_different_employees_over_capacity_of_meeting_room() {
+    public void createMeeting_meeting_with_different_participants_over_capacity_of_meeting_room() {
         //given
         MeetingRoom meetingRoom = moesWithCapacity4WithOutId();
         Meeting meeting = familyMeetingBetween16And18On15Dec2014InRoom(meetingRoom);

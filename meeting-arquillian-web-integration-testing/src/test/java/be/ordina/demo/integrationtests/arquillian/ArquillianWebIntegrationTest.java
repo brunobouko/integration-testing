@@ -97,12 +97,13 @@ public class ArquillianWebIntegrationTest {
     }
 
     @Test
-    public void should_set_text_of_paragraph_to_selected_meetingRoom() {
+    public void should_set_text_of_paragraph_to_selected_meetingRoom() throws InterruptedException {
         browser.get(deploymentUrl.toExternalForm() + "app/index.html");
 
         WebElement webElement = meetingRooms.get(2);
+        //Thread.sleep(5000);
         webElement.click();
-
+        //Thread.sleep(5000);
         assertThat(selectedMeetingRoom.getText()).isEqualTo("The selected meeting-room is Ghent");
     }
 

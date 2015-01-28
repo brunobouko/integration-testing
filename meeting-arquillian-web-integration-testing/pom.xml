@@ -130,9 +130,6 @@
                     <testResource>
                         <directory>src/test/resources</directory>
                     </testResource>
-                    <testResource>
-                        <directory>src/test/resources-jbossas-managed</directory>
-                    </testResource>
                 </testResources>
             </build>
         </profile>
@@ -164,9 +161,6 @@
                     <testResource>
                         <directory>src/test/resources</directory>
                         <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-jbossas-remote</directory>
                     </testResource>
                 </testResources>
             </build>

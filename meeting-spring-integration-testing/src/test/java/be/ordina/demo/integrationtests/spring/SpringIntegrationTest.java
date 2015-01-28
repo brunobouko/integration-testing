@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import static be.ordina.demo.meeting.MeetingMother.familyMeetingBetween16And18On
 import static be.ordina.demo.meeting.MeetingMother.integrationTestingBetween16And18On15Dec2014InRoomWithoutId;
 import static be.ordina.demo.meeting.MeetingRoomMother.europaWithCapacity10WithOutId;
 import static be.ordina.demo.meeting.MeetingRoomMother.moesWithCapacity4WithOutId;
+import static be.ordina.demo.meeting.ParticipantMother.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -26,6 +28,7 @@ import static org.junit.Assert.fail;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @Transactional
+@Component
 public class SpringIntegrationTest {
 
     @PersistenceContext
@@ -34,12 +37,12 @@ public class SpringIntegrationTest {
     private MeetingOrganizer meetingOrganizer;
 
     @Test
-    public void createMeeting_meeting_with_different_employees_within_capacity_range() {
+    public void createMeeting_meeting_with_different_participants_within_capacity_range() {
         //given
         MeetingRoom meetingRoom = europaWithCapacity10WithOutId();
         Meeting meeting = integrationTestingBetween16And18On15Dec2014InRoomWithoutId(meetingRoom);
-        Participant johDoe = ParticipantMother.getJohDoe();
-        Participant homerSimpson = ParticipantMother.getHomerSimpson();
+        Participant johDoe = getJohDoe();
+        Participant homerSimpson = getHomerSimpson();
 
         List<Participant> participants = Arrays.asList(johDoe, homerSimpson);
 
@@ -63,12 +66,12 @@ public class SpringIntegrationTest {
     }
 
     @Test
-    public void createMeeting_meeting_with_different_employees_over_capacity_of_meeting_room() {
+    public void createMeeting_meeting_with_different_participants_over_capacity_of_meeting_room() {
         //given
         meetingOrganizer.deleteMeetings();
         MeetingRoom meetingRoom = moesWithCapacity4WithOutId();
         Meeting meeting = familyMeetingBetween16And18On15Dec2014InRoom(meetingRoom);
-        List<Participant> simpsons = ParticipantMother.getTheSimpsons();
+        List<Participant> simpsons = getTheSimpsons();
 
         //when
         try {
