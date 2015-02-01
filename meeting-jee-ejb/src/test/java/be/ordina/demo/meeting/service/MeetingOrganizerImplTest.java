@@ -5,6 +5,7 @@ import be.ordina.demo.meeting.repo.MeetingRepository;
 import be.ordina.demo.meeting.repo.MeetingRoomRepository;
 import be.ordina.demo.meeting.repo.ParticipantRepository;
 import com.google.common.collect.Lists;
+import org.hamcrest.core.IsSame;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,7 +57,7 @@ public class MeetingOrganizerImplTest {
         ArrayList<MeetingRoom> meetingRooms = Lists.newArrayList(meetingRoom);
         when(meetingRoomRepository.getAllMeetingRooms()).thenReturn(meetingRooms);
 
-        assertThat(meetingOrganizer.getMeetingRooms(), sameInstance(meetingRooms));
+        assertThat(meetingOrganizer.getMeetingRooms(), IsSame.<List<MeetingRoom>>sameInstance(meetingRooms));
         verify(meetingRoomInitializer, times(1)).initializeMeetingRooms(entityManager);
     }
 
@@ -67,7 +68,7 @@ public class MeetingOrganizerImplTest {
         ArrayList<MeetingRoom> meetingRooms = Lists.newArrayList(meetingRoom);
         when(meetingRoomRepository.getAllMeetingRooms()).thenReturn(meetingRooms);
 
-        assertThat(meetingOrganizer.getMeetingRooms(), sameInstance(meetingRooms));
+        assertThat(meetingOrganizer.getMeetingRooms(), IsSame.<List<MeetingRoom>>sameInstance(meetingRooms));
         verify(meetingRoomInitializer, never()).initializeMeetingRooms(entityManager);
     }
 

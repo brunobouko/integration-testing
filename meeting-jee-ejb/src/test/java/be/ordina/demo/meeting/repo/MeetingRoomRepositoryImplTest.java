@@ -2,6 +2,7 @@ package be.ordina.demo.meeting.repo;
 
 import be.ordina.demo.meeting.MeetingRoom;
 import com.google.common.collect.Lists;
+import org.hamcrest.core.IsSame;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsSame.sameInstance;
@@ -48,7 +50,7 @@ public class MeetingRoomRepositoryImplTest {
         when(typedQuery.getResultList()).thenReturn(meetingRooms);
 
 
-        assertThat(meetingRoomRepository.getAllMeetingRooms(), sameInstance(meetingRooms));
+        assertThat(meetingRoomRepository.getAllMeetingRooms(), IsSame.<List<MeetingRoom>>sameInstance(meetingRooms));
         verify(typedQuery, times(1)).getResultList();
 
     }

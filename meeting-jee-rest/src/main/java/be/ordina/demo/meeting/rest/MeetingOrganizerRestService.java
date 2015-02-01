@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
 @Path("organizer")
-public class MeetingOrganizerRestService {
+public class MeetingOrganizerRestService implements RestService {
     @EJB
     private MeetingOrganizer meetingOrganizer;
     @Inject

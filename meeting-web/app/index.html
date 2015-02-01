@@ -17,10 +17,11 @@
 <div class="container-fluid">
     <h1>The meeting organizer app is {{alive}}!</h1>
 
-    <div ng-controller= "MeetingRoomsCtrl">
+    <div ng-controller="MeetingRoomsCtrl">
         <select ng-model="meetingRoom" title="meetingRooms">
             <option ng-repeat="meetingRoom in meetingRooms" value="{{meetingRoom.name}}">{{meetingRoom.name}}</option>
         </select>
+
         <div>
             <h2>The selected meeting-room is {{meetingRoom}}</h2>
         </div>
